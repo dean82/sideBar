@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>topicBar</title>
+    <style type="text/css">
+        * {margin: 0; padding: 0;}
+        body { height: 3500px; padding: 10px; margin: 15px; }
+        #con {width: 960px; height: 1500px; margin: 100px auto; background: #ccc;}
+        #zhanwei {width: 960px; height: 500px; margin: 100px auto;  background: #666;}
+        .content { background: red; width: 100px; height: 200px; }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.topicBar.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        var rt = new TopicBar( $('#con'),{
+            paddingTop : 0,
+            paddingLeft : false,
+            paddingRight : -30,
+            paddingBottom : -10,
+            opacityPaddingLeft : 0,
+            opacityPaddingRight : 30,
+            opacity : 0.5,
+            hoverOpacity: 1,
+            top : 20,
+            right : 20,
+            content : '<div class="content" style="background: #adf">我是右上的DIV,水平方向无限制。</div>'
+        });
+
+        var lt = new TopicBar( $('#con'),{
+            paddingTop : -30,
+            paddingLeft : -130,
+            paddingRight : 0,
+            paddingBottom : -50,
+            opacityPaddingLeft : 0,
+            opacityPaddingRight : 50,
+            opacityPaddingTop : 0,
+            opacityPaddingBottom : 0,
+            opacity : 0.5,
+            hoverOpacity: 1,
+            // top : 0,
+            // left : 40,
+            content : '<div class="content" style="background: #345">我是左上的DIV</div>'
+        });
+
+        rb = new TopicBar( $('#con'),{
+            paddingTop : 60,
+            paddingLeft : -50,
+            paddingRight : -150,
+            paddingBottom : -30,
+            opacityPaddingLeft : 0,
+            opacityPaddingRight : 0,
+            opacity : 0.5,
+            hoverOpacity: 1,
+            bottom : 30,
+            zIndex: 999999998,
+            right : 10,
+            content : '<div class="content"  style="background: #689">我是右下的DIV</div>'
+        });
+
+        var lb = new TopicBar( $('#con'),{
+            paddingTop : false,
+            paddingLeft : -120,
+            paddingRight : -100,
+            paddingBottom : 0,
+            opacityPaddingLeft : 30,
+            opacityPaddingRight : 50,
+            opacity : 0.5,
+            bottom : 20,
+            left : 40,
+            content : '<div class="content">我是左下的DIV，垂直方向无限制。</div>'
+        });
+    });
+    </script>
+</head>
+<body>
+    <div id="zhanwei">占位</div>
+    <div id="con"><p>测试文字</p></div>
+</body>
+</html>
