@@ -1,5 +1,5 @@
 /*
-    var topicBar = new TopicBar( $('#container'),{
+    var sideBar = new sideBar( $('#container'),{
         paddingTop : 0,
         paddingLeft : -20,
         paddingRight : -20,
@@ -17,9 +17,9 @@
     } );
 */
 
-function TopicBar(container, attrs) {
+function sideBar(container, attrs) {
     var isIE6 = /MSIE 6\.0/.test(navigator.userAgent);
-    var topicBar     = null;
+    var sideBar     = null;
     var isOpacity    = false; // 是否已透明
     var isVertical   = true;  // 是否垂直无限制 true为限制
     var isHorizontal = true;  // 是否水平无限制 true为限制
@@ -27,8 +27,8 @@ function TopicBar(container, attrs) {
     var scrollTop = 0;
     var scrollLeft = 0;
 
-    var topicBarWidth = 0;
-    var topicBarHeight = 0;
+    var sideBarWidth = 0;
+    var sideBarHeight = 0;
 
     var windowHeight = 0;
     var windowWidth = 0;
@@ -36,20 +36,20 @@ function TopicBar(container, attrs) {
     var containerWdith = 0;
     var containerHeight = 0;
 
-    var topicBarOffset  = null;
+    var sideBarOffset  = null;
     var containerOffset = null;
 
-    var topicBarLeftBorder = 0;
-    var topicBarTopBorder = 0;
-    var topicBarRightBorder = 0;
-    var topicBarBottomBorder = 0;
+    var sideBarLeftBorder = 0;
+    var sideBarTopBorder = 0;
+    var sideBarRightBorder = 0;
+    var sideBarBottomBorder = 0;
 
     function refreshPosition() {
         scrollTop = $(window).scrollTop();
         scrollLeft = $(window).scrollLeft();
 
-        topicBarHeight = topicBar.height();
-        topicBarWidth = topicBar.width();
+        sideBarHeight = sideBar.height();
+        sideBarWidth = sideBar.width();
 
         containerWdith = container.width();
         containerHeight = container.height();
@@ -57,8 +57,8 @@ function TopicBar(container, attrs) {
         windowHeight = $(window).height();
         windowWidth = $(window).width();
         
-        topicBarOffsetTop = topicBar.offset().top;
-        topicBarOffsetLeft = topicBar.offset().left;
+        sideBarOffsetTop = sideBar.offset().top;
+        sideBarOffsetLeft = sideBar.offset().left;
 
         containerOffsetTop = container.offset().top;
         containerOffsetLeft = container.offset().left;
@@ -69,8 +69,8 @@ function TopicBar(container, attrs) {
             scrollTop  = Math.round($(window).scrollTop()/level);
             scrollLeft = Math.round($(window).scrollLeft()/level);
 
-            topicBarOffsetTop   = Math.round(topicBar.offset().top/level);
-            topicBarOffsetLeft  = Math.round(topicBar.offset().left/level);
+            sideBarOffsetTop   = Math.round(sideBar.offset().top/level);
+            sideBarOffsetLeft  = Math.round(sideBar.offset().left/level);
 
             containerOffsetTop  = Math.round(container.offset().top/level);
             containerOffsetLeft = Math.round(container.offset().left/level);
@@ -79,36 +79,36 @@ function TopicBar(container, attrs) {
             windowWidth  = Math.round($(window).width()/level);
         }
 
-        topicBarLeftBorder = topicBarOffsetLeft;
-        topicBarTopBorder = topicBarOffsetTop;
-        topicBarRightBorder = topicBarOffsetLeft + topicBarWidth;
-        topicBarBottomBorder = topicBarOffsetTop  + topicBarHeight;
+        sideBarLeftBorder = sideBarOffsetLeft;
+        sideBarTopBorder = sideBarOffsetTop;
+        sideBarRightBorder = sideBarOffsetLeft + sideBarWidth;
+        sideBarBottomBorder = sideBarOffsetTop  + sideBarHeight;
     }
 
     function setPositionAttr() {
         if (isIE6) {
-            var topicBarTop = attrs.top ? attrs.top : ($(window).height() - topicBar.height() - attrs.bottom);
-            topicBar.css("position", "absolute");
+            var sideBarTop = attrs.top ? attrs.top : ($(window).height() - sideBar.height() - attrs.bottom);
+            sideBar.css("position", "absolute");
             $(window).bind('scroll', function() {
-                topicBar.css({top: scrollTop + topicBarTop, bottom: "auto"});
+                sideBar.css({top: scrollTop + sideBarTop, bottom: "auto"});
             });
         } else {
-            topicBar.css("position", "fixed");
+            sideBar.css("position", "fixed");
         }
     }
 
     function setPosition() {
         if (!isNaN(attrs.top)) {
-            topicBar.css({top: attrs.top});
+            sideBar.css({top: attrs.top});
         }
         if (!isNaN(attrs.right)) {
-            topicBar.css({right: attrs.right});
+            sideBar.css({right: attrs.right});
         }
         if (!isNaN(attrs.left)) {
-            topicBar.css({left: attrs.left});
+            sideBar.css({left: attrs.left});
         }
         if (!isNaN(attrs.bottom)) {
-            topicBar.css({bottom: attrs.bottom});
+            sideBar.css({bottom: attrs.bottom});
         }
     } 
 
@@ -117,14 +117,14 @@ function TopicBar(container, attrs) {
     //    -------------------------------------------------
     //    |paddingLeft             paddingTop             |
     //    | ↓ -----------------------------------------   |
-    //    |   |    topicBarTopBorder                  |   |
+    //    |   |    sideBarTopBorder                  |   |
     //    |   |     ----              container       |   |
     //    |   |     |  |                              |   |
-    // cL |   |  tL |  | topicBarRightBorder          |   | containerRightBorder
+    // cL |   |  tL |  | sideBarRightBorder          |   | containerRightBorder
     //    |   |     |  |                              |   |
     //    |   |     ----                              |   |
     //    |   |      tB   ↖                          |   |
-    //    |   |          topicBar                     |   |
+    //    |   |          sideBar                     |   |
     //    |   |                                       |   |
     //    |   ----------------------------------------- ↑ |
     //    |     paddingBottom                 paddingRight|
@@ -139,14 +139,14 @@ function TopicBar(container, attrs) {
         var opacityRightBorder = containerOffsetLeft + containerWdith  - attrs.opacityPaddingRight;
         var opacityBottomBorder = containerOffsetTop  + containerHeight - attrs.opacityPaddingBottom;
 
-        if (opacityBottomBorder < topicBarTopBorder || topicBarRightBorder < opacityLeftBorder || topicBarBottomBorder < opacityTopBorder || opacityRightBorder < topicBarLeftBorder) {
+        if (opacityBottomBorder < sideBarTopBorder || sideBarRightBorder < opacityLeftBorder || sideBarBottomBorder < opacityTopBorder || opacityRightBorder < sideBarLeftBorder) {
             // 在透明区域外部
             isOpacity = false;
-            topicBar.css("opacity", 1);
+            sideBar.css("opacity", 1);
         } else {
             // 进入到透明区域
             isOpacity = true;
-            topicBar.css("opacity", attrs.opacity);
+            sideBar.css("opacity", attrs.opacity);
         }
     }
 
@@ -158,39 +158,39 @@ function TopicBar(container, attrs) {
         var containerRightBorder = containerOffsetLeft + containerWdith  - attrs.paddingRight;
         var containerBottomBorder = containerOffsetTop  + containerHeight - attrs.paddingBottom;
 
-        var topicBarTop = (attrs.top !== undefined) ? (attrs.top + scrollTop) : (windowHeight - topicBarHeight - attrs.bottom +scrollTop);
-        var topicBarLeft = (attrs.left !== undefined) ? (attrs.left + scrollLeft) : (windowWidth - topicBarWidth - attrs.right + scrollLeft);
+        var sideBarTop = (attrs.top !== undefined) ? (attrs.top + scrollTop) : (windowHeight - sideBarHeight - attrs.bottom +scrollTop);
+        var sideBarLeft = (attrs.left !== undefined) ? (attrs.left + scrollLeft) : (windowWidth - sideBarWidth - attrs.right + scrollLeft);
 
         if (isVertical) {
             // 上
-            if (topicBarTopBorder < containerTopBorder || containerTopBorder > topicBarTop ) {
-                topicBar.css({top: containerTopBorder, bottom: "auto"});
+            if (sideBarTopBorder < containerTopBorder || containerTopBorder > sideBarTop ) {
+                sideBar.css({top: containerTopBorder, bottom: "auto"});
             } else {
-                topicBar.css({top: topicBarTop, bottom: "auto"});
+                sideBar.css({top: sideBarTop, bottom: "auto"});
             }
             // 下
-            if (topicBarBottomBorder > containerBottomBorder || windowHeight + scrollTop - containerBottomBorder > attrs.bottom || containerBottomBorder - scrollTop - topicBarHeight< attrs.top) {
-                topicBar.css({top: containerBottomBorder - topicBarHeight, bottom: "auto"});
+            if (sideBarBottomBorder > containerBottomBorder || windowHeight + scrollTop - containerBottomBorder > attrs.bottom || containerBottomBorder - scrollTop - sideBarHeight< attrs.top) {
+                sideBar.css({top: containerBottomBorder - sideBarHeight, bottom: "auto"});
             }
         } else {
-            topicBar.css({top: topicBarTop, bottom: "auto"});
+            sideBar.css({top: sideBarTop, bottom: "auto"});
         }
 
         if (isHorizontal) {
             // 左
-            if (topicBarLeftBorder < containerLeftBorder || containerLeftBorder > attrs.left) {
-                topicBar.css({left: containerLeftBorder, right: "auto"});
+            if (sideBarLeftBorder < containerLeftBorder || containerLeftBorder > attrs.left) {
+                sideBar.css({left: containerLeftBorder, right: "auto"});
             } else {
-                if (attrs.left !== undefined) topicBar.css({left: topicBarLeft, right: "auto"});
+                if (attrs.left !== undefined) sideBar.css({left: sideBarLeft, right: "auto"});
             }
             // 右
-            if (topicBarRightBorder > containerRightBorder && windowWidth > containerRightBorder || windowWidth - attrs.right > containerRightBorder) {
-                topicBar.css({left: containerRightBorder - topicBarWidth, right: "auto"});
+            if (sideBarRightBorder > containerRightBorder && windowWidth > containerRightBorder || windowWidth - attrs.right > containerRightBorder) {
+                sideBar.css({left: containerRightBorder - sideBarWidth, right: "auto"});
             } else {
-                if (attrs.right !== undefined) topicBar.css({right: attrs.right, left: "auto"});
+                if (attrs.right !== undefined) sideBar.css({right: attrs.right, left: "auto"});
             }
         } else {
-            topicBar.css({left: topicBarLeft, right: "auto"});
+            sideBar.css({left: sideBarLeft, right: "auto"});
         }
     }
 
@@ -206,41 +206,41 @@ function TopicBar(container, attrs) {
         var containerRightBorder = containerOffsetLeft + containerWdith  - attrs.paddingRight;
         var containerBottomBorder = containerOffsetTop  + containerHeight - attrs.paddingBottom;
 
-        var topicBarTop = (attrs.top !== undefined) ? attrs.top : (windowHeight - topicBarHeight - attrs.bottom);
+        var sideBarTop = (attrs.top !== undefined) ? attrs.top : (windowHeight - sideBarHeight - attrs.bottom);
 
         if (isVertical) {
             // 上
-            if (topicBarTopBorder < containerTopBorder || containerTopBorder - scrollTop > topicBarTop) {
-                topicBar.css({top: containerTopBorder - scrollTop, bottom: "auto"});
+            if (sideBarTopBorder < containerTopBorder || containerTopBorder - scrollTop > sideBarTop) {
+                sideBar.css({top: containerTopBorder - scrollTop, bottom: "auto"});
             } else {
-                topicBar.css({top: topicBarTop, bottom: "auto"});
+                sideBar.css({top: sideBarTop, bottom: "auto"});
             }
             
             // 更新数据
-            topicBarBottomBorder = topicBarOffsetTop  + topicBarHeight;
+            sideBarBottomBorder = sideBarOffsetTop  + sideBarHeight;
             containerBottomBorder = containerOffsetTop  + containerHeight - attrs.paddingBottom;
 
             // 下
-            if (topicBarBottomBorder > containerBottomBorder || windowHeight + scrollTop - containerBottomBorder > attrs.bottom || containerBottomBorder - scrollTop < topicBarHeight + attrs.top) {
-                topicBar.css({top: containerBottomBorder - topicBarHeight - scrollTop, bottom: "auto"});
+            if (sideBarBottomBorder > containerBottomBorder || windowHeight + scrollTop - containerBottomBorder > attrs.bottom || containerBottomBorder - scrollTop < sideBarHeight + attrs.top) {
+                sideBar.css({top: containerBottomBorder - sideBarHeight - scrollTop, bottom: "auto"});
             } else {
-                if (attrs.bottom !== undefined && containerTopBorder - scrollTop <= topicBarTop) topicBar.css({bottom: attrs.bottom, top: "auto"});
+                if (attrs.bottom !== undefined && containerTopBorder - scrollTop <= sideBarTop) sideBar.css({bottom: attrs.bottom, top: "auto"});
             }
         }
 
         if (isHorizontal) {
             // 左
-            if (topicBarLeftBorder < containerLeftBorder || containerLeftBorder - attrs.left > 0) {
-                topicBar.css({left: containerLeftBorder, right: "auto"});
+            if (sideBarLeftBorder < containerLeftBorder || containerLeftBorder - attrs.left > 0) {
+                sideBar.css({left: containerLeftBorder, right: "auto"});
             } else {
-                if (attrs.left !== undefined) topicBar.css({left: attrs.left, right: "auto"});
+                if (attrs.left !== undefined) sideBar.css({left: attrs.left, right: "auto"});
             }
 
             // 右
-            if (topicBarRightBorder > containerRightBorder && windowWidth > containerRightBorder || windowWidth - attrs.right > containerRightBorder) {
-                topicBar.css({left: containerRightBorder - topicBarWidth, right: "auto"});
+            if (sideBarRightBorder > containerRightBorder && windowWidth > containerRightBorder || windowWidth - attrs.right > containerRightBorder) {
+                sideBar.css({left: containerRightBorder - sideBarWidth, right: "auto"});
             } else {
-                if (attrs.right !== undefined) topicBar.css({right: attrs.right, left: "auto"});
+                if (attrs.right !== undefined) sideBar.css({right: attrs.right, left: "auto"});
             }
         }
     }
@@ -300,8 +300,8 @@ function TopicBar(container, attrs) {
 
     function bindEvent() {
         $(window).bind('resize', function() {
-            clearTimeout(topicBar.timer);
-            topicBar.timer = setTimeout(function() {
+            clearTimeout(sideBar.timer);
+            sideBar.timer = setTimeout(function() {
                 dealPosition();
                 dealOpacity();
             }, 100);
@@ -315,18 +315,18 @@ function TopicBar(container, attrs) {
     }
 
     function bindSetOpacityEvent(num) {
-        topicBar.unbind('mouseover.topicBar').bind('mouseover.topicBar', function() {
-            topicBar.css('zIndex', attrs.zIndex+1);
+        sideBar.unbind('mouseover.sideBar').bind('mouseover.sideBar', function() {
+            sideBar.css('zIndex', attrs.zIndex+1);
             if (!isOpacity) return;
-            topicBar.stop().animate({
+            sideBar.stop().animate({
                 opacity: num
             }, 300);
         });
 
-        topicBar.unbind('mouseout.topicBar').bind('mouseout.topicBar', function() {
-            topicBar.css('zIndex', attrs.zIndex);
+        sideBar.unbind('mouseout.sideBar').bind('mouseout.sideBar', function() {
+            sideBar.css('zIndex', attrs.zIndex);
             if (!isOpacity) return;
-            topicBar.stop().animate({
+            sideBar.stop().animate({
                 opacity: attrs.opacity
             }, 300);
         });
@@ -334,8 +334,8 @@ function TopicBar(container, attrs) {
 
     function init() {
         dealDefault();
-        topicBar = $(attrs.content).appendTo($("body"));
-        topicBar.css('zIndex', 1000);
+        sideBar = $(attrs.content).appendTo($("body"));
+        sideBar.css('zIndex', 1000);
         setPositionAttr();
         setPosition();
         dealPosition();
@@ -346,11 +346,11 @@ function TopicBar(container, attrs) {
     init();
 
     this.show = function() {
-        topicBar.css('display', 'block');
+        sideBar.css('display', 'block');
     };
 
     this.hide = function() {
-        topicBar.css('display', 'none');
+        sideBar.css('display', 'none');
     };
 
     this.setOpacity = function(num) {

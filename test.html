@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>topicBar</title>
+    <title>sideBar</title>
     <style type="text/css">
         * {margin: 0; padding: 0;}
         body { height: 3500px; padding: 10px; margin: 15px; }
@@ -11,10 +11,10 @@
         .content { background: red; width: 100px; height: 200px; }
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery.topicBar.js"></script>
+    <script type="text/javascript" src="sideBar.js"></script>
     <script type="text/javascript">
     $(function () {
-        var rt = new TopicBar( $('#con'),{
+        var rt = new sideBar( $('#con'),{
             paddingTop : 0,
             paddingLeft : false,
             paddingRight : -30,
@@ -28,7 +28,7 @@
             content : '<div class="content" style="background: #adf">我是右上的DIV,水平方向无限制。</div>'
         });
 
-        var lt = new TopicBar( $('#con'),{
+        var lt = new sideBar( $('#con'),{
             paddingTop : -30,
             paddingLeft : -130,
             paddingRight : 0,
@@ -44,7 +44,7 @@
             content : '<div class="content" style="background: #345">我是左上的DIV</div>'
         });
 
-        rb = new TopicBar( $('#con'),{
+        rb = new sideBar( $('#con'),{
             paddingTop : 60,
             paddingLeft : -50,
             paddingRight : -150,
@@ -59,7 +59,7 @@
             content : '<div class="content"  style="background: #689">我是右下的DIV</div>'
         });
 
-        var lb = new TopicBar( $('#con'),{
+        var lb = new sideBar( $('#con'),{
             paddingTop : false,
             paddingLeft : -120,
             paddingRight : -100,
